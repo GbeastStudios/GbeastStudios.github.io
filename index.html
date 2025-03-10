@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GBeastStudios</title>
+  <!-- Favicon: GBeast Logo using relative path -->
+  <link rel="icon" href="Gbeast.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /*----------------------------------------
+      CSS Variables & Global Resets
+    ----------------------------------------*/
+    :root {
+      --primary-color: #ff0000;   /* Bright Red */
+      --secondary-color: #990000; /* Dark Red */
+      --accent-color: #808080;    /* Gray */
+      --dark-color: #000000;      /* Black */
+      --light-color: #ffffff;     /* White */
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--light-color);
+      /* Updated gradient: red, black, white, grey */
+      background: linear-gradient(135deg, #990000, #000000, #FFFFFF, #808080);
+      background-size: 400% 400%;
+      animation: gradientBackground 15s ease infinite;
+      min-height: 100vh;
+      transition: filter 0.3s ease;
+    }
+    @keyframes gradientBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /*----------------------------------------
+      Header, Navigation & Header Icons
+    ----------------------------------------*/
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 15px 0;
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      height: 50px;
+      margin-right: 10px;
+    }
+    nav {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    .nav-links li { 
+      margin-left: 20px; 
+    }
+    .nav-links a {
+      color: var(--light-color);
+      text-decoration: none;
+      font-size: 1.1rem;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      background-color: var(--primary-color);
+    }
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+    /* New header icons for settings and authentication */
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .header-icons i {
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .header-icons i:hover {
+      color: var(--primary-color);
+    }
+    
+    /*----------------------------------------
+      Sections & Animations
+    ----------------------------------------*/
+    section {
+      display: none;
+      padding: 40px 0;
+      min-height: calc(100vh - 180px);
+    }
+    section.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .page-title {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    /*----------------------------------------
+      Home Section & Gallery
+    ----------------------------------------*/
+    .game-showcase {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: rgba(0,0,0,0.6);
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .game-description {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      max-width: 800px;
+    }
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--light-color);
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      border: none;
+      cursor: pointer;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      margin: 5px;
+    }
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+    }
+    .button i { margin-right: 10px; }
+    .black-button {
+      background-color: #000 !important;
+      color: #fff !important;
+    }
+    .gallery-section {
+      padding: 40px 0;
+      text-align: center;
+    }
+    .gallery-section .section-title {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--light-color);
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border: 2px solid var(--primary-color);
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      width: 300px;
+      height: 300px;
+      background-color: rgba(0,0,0,0.6);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .gallery-item .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      color: var(--light-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .gallery-item:hover .overlay {
+      opacity: 1;
+    }
+    
+    /*----------------------------------------
+      Mini-Game Section (frame re‑centered)
+    ----------------------------------------*/
+    .game-container {
+      width: 420px;
+      margin: 30px auto; /* extra top margin added */
+      background-color: rgba(0,0,0,0.6);
+      border: 3px solid var(--primary-color);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      text-align: center;
+      position: relative;
+    }
+    .game-container::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1), transparent);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .mini-game-title {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .game-score {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    .canvas-wrapper {
+      position: relative;
+      display: inline-block;
+      border: 2px solid var(--primary-color);
+      border-radius: 10px;
+    }
+    #gameCanvas {
+      display: block;
+      border-radius: 10px;
+      margin: 0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+    .collectible-container {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .collectible-container:hover {
+      transform: scale(1.1);
+    }
+    .collectible-counter {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .timer-bar {
+      width: 100%;
+      height: 10px;
+      background-color: #333;
+      border-radius: 5px;
+      margin: 10px auto;
+      overflow: hidden;
+    }
+    .timer-progress {
+      height: 100%;
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      width: 100%;
+      transition: width 0.1s linear;
+    }
+    .game-controls {
+      background-color: rgba(0,0,0,0.5);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .upgrade-shop {
+      background-color: rgba(0,0,0,0.5);
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 20px;
+      text-align: left;
+    }
+    .upgrade-shop h3 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .upgrade-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 8px 0;
+    }
+    
+    /*----------------------------------------
+      Team Section (formerly About)
+    ----------------------------------------*/
+    .about-content {
+      background-color: rgba(0,0,0,0.6);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .team-info {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .about-description {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+    .team-members {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .team-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+    }
+    .team-member {
+      background-color: rgba(0,0,0,0.5);
+      border-radius: 10px;
+      padding: 20px;
+      width: 200px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    }
+    .team-member-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      background-color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+    
+    /*----------------------------------------
+      Contact Section (Refined)
+    ----------------------------------------*/
+    .contact-methods {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .contact-method {
+      background: linear-gradient(135deg, #990000, #000000, #808080);
+      border-radius: 15px;
+      padding: 25px;
+      width: 250px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+    .contact-method:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+    }
+    .contact-method i {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+    }
+    
+    /*----------------------------------------
+      Modal for Notifications, Settings & Auth
+    ----------------------------------------*/
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background-color: rgba(30,30,30,0.95);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      max-width: 500px;
+      width: 80%;
+      box-shadow: 0 0 30px rgba(255,0,0,0.5);
+      border: 2px solid var(--primary-color);
+      animation: modalAppear 0.3s ease;
+    }
+    @keyframes modalAppear {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal-title {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+    }
+    .modal-text {
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+    .modal-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    /* Inputs and settings options */
+    input[type="text"],
+    input[type="password"] {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+    .settings-option {
+      margin: 15px 0;
+    }
+    .settings-option label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1rem;
+    }
+    .settings-option input[type="range"],
+    .settings-option select {
+      width: 80%;
+    }
+    
+    /*----------------------------------------
+      Achievement Notification (Icon Updated)
+    ----------------------------------------*/
+    .achievement {
+      position: fixed;
+      bottom: 20px;
+      right: -300px;
+      background-color: rgba(0,0,0,0.8);
+      border-left: 4px solid var(--primary-color);
+      padding: 15px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      width: 280px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      transition: right 0.5s ease;
+      z-index: 1000;
+    }
+    .achievement.show { right: 20px; }
+    .achievement-icon {
+      background-color: var(--primary-color);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      overflow: hidden;
+    }
+    .achievement-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .achievement-info { flex: 1; }
+    .achievement-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    /*----------------------------------------
+      Footer
+    ----------------------------------------*/
+    footer {
+      background-color: rgba(0,0,0,0.8);
+      padding: 20px 0;
+      text-align: center;
+    }
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .footer-links {
+      display: flex;
+      list-style: none;
+      margin-bottom: 15px;
+    }
+    .footer-links li { margin: 0 10px; }
+    .footer-links a {
+      color: var(--light-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .footer-links a:hover { color: var(--primary-color); }
+    .copyright {
+      font-size: 0.9rem;
+      color: #999;
+    }
+    
+    /*----------------------------------------
+      Responsive Styles
+    ----------------------------------------*/
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        flex-direction: column;
+        background-color: rgba(0,0,0,0.9);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.5);
+      }
+      .nav-links.active { left: 0; }
+      .nav-links li { margin: 15px 0; }
+      .game-container { width: 90%; }
+      #gameCanvas { width: 100%; height: auto; }
+      .gallery {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .gallery-item {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+      }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 15px; }
+      .page-title { font-size: 1.8rem; }
+      .contact-method, .team-member { width: 100%; }
+      .team-row { flex-direction: column; }
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <img src="Gbeast.png" alt="GBeast Logo" />
+          <span>GBeastStudios</span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#" data-section="home" class="nav-link active">Home</a></li>
+          <li><a href="#" data-section="game" class="nav-link">Mini-Game</a></li>
+          <li><a href="#" data-section="team" class="nav-link">Team</a></li>
+          <li><a href="#" data-section="contact" class="nav-link">Contact</a></li>
+        </ul>
+        <!-- New header icons for settings and auth -->
+        <div class="header-icons">
+          <i class="fas fa-cog" id="settingsBtn" title="Settings"></i>
+          <i class="fas fa-user" id="authBtn" title="Sign In / Sign Up"></i>
+        </div>
+        <div class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- MAIN CONTENT -->
+  <main class="container">
+    <!-- HOME SECTION -->
+    <section id="home" class="active">
+      <h1 class="page-title">Welcome to GBeastStudios</h1>
+      <div class="game-showcase">
+        <p class="game-description">
+          Embark on an epic adventure in our upcoming Roblox game! Explore mysterious lands, discover hidden treasures, and uncover the ancient secrets of the Noil. Coming Soon!
+        </p>
+        <div class="social-links">
+          <a href="https://discord.gg/UETtUBANZN" target="_blank" class="button">
+            <i class="fab fa-discord"></i> Join Discord
+          </a>
+          <a href="https://www.youtube.com/@Gbeas_Productions" target="_blank" class="button">
+            <i class="fab fa-youtube"></i> YouTube Channel
+          </a>
+          <a href="#" class="button black-button" id="comingSoonBtn">
+            Secrets of the Noil Coming Soon
+          </a>
+        </div>
+      </div>
+      <div class="game-showcase">
+        <h2 class="page-title">Upcoming Projects</h2>
+        <p class="game-description">
+          Stay tuned for our upcoming games and exciting new features! Follow us on social media for the latest updates.
+        </p>
+        <div class="social-links">
+          <a href="#" class="button" id="notifyBtn">
+            <i class="fas fa-bell"></i> Get Notified
+          </a>
+        </div>
+      </div>
+      <!-- GALLERY SECTION -->
+      <div class="gallery-section">
+        <h2 class="section-title">Secrets of the Noil Gallery</h2>
+        <div class="gallery">
+          <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x300?text=Coming+Soon" alt="Coming Soon">
+            <div class="overlay">Coming Soon</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x300?text=Coming+Soon" alt="Coming Soon">
+            <div class="overlay">Coming Soon</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x300?text=Coming+Soon" alt="Coming Soon">
+            <div class="overlay">Coming Soon</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- MINI-GAME SECTION -->
+    <section id="game">
+      <h1 class="page-title">Beast Collector</h1>
+      <div class="game-container" id="gameContainerElement">
+        <h2 class="mini-game-title">Coin Clicker</h2>
+        <div class="game-score">
+          Score: <span id="score">0</span> | High Score: <span id="highScore">0</span>
+        </div>
+        <div class="canvas-wrapper">
+          <canvas id="gameCanvas" width="400" height="400"></canvas>
+        </div>
+        <div class="collectible-counter">
+          Time: <span id="timeLeft">30</span>s
+        </div>
+        <div class="timer-bar">
+          <div class="timer-progress" id="timerProgress"></div>
+        </div>
+        <div class="game-controls">
+          <button class="button" id="startGameBtn">
+            <i class="fas fa-play"></i> Start Game
+          </button>
+          <button class="button" id="pauseResumeBtn">
+            <i class="fas fa-pause"></i> Pause
+          </button>
+          <button class="button" id="resetGameBtn">
+            <i class="fas fa-redo"></i> Reset Game
+          </button>
+          <button class="button" id="instructionsBtn">
+            <i class="fas fa-question-circle"></i> How To Play
+          </button>
+        </div>
+        <!-- UPGRADE SHOP -->
+        <div class="upgrade-shop">
+          <h3>Upgrade Shop</h3>
+          <div class="upgrade-item">
+            <span>More Red Coins (Increases red coin chance)</span>
+            <button class="button upgrade-btn" data-upgrade="moreRed">Buy for 10</button>
+          </div>
+          <div class="upgrade-item">
+            <span>Faster Spawn (Reduce spawn interval)</span>
+            <button class="button upgrade-btn" data-upgrade="fasterSpawn">Buy for 20</button>
+          </div>
+          <div class="upgrade-item">
+            <span>Double Score (Coins yield double points)</span>
+            <button class="button upgrade-btn" data-upgrade="doubleScore">Buy for 50</button>
+          </div>
+          <div class="upgrade-item">
+            <span>Gold Rush (Increases gold coin chance)</span>
+            <button class="button upgrade-btn" data-upgrade="goldRush">Buy for 30</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- TEAM SECTION (formerly About) -->
+    <section id="team">
+      <h1 class="page-title">Meet the Team</h1>
+      <div class="about-content">
+        <div class="team-info">
+          <p class="about-description">
+            We are a passionate team of Roblox developers dedicated to creating immersive and engaging gaming experiences.
+            Our flagship game, <strong>Secrets of the Noil</strong>, represents our commitment to quality, creativity, and player enjoyment.
+          </p>
+          <p class="about-description">
+            Founded in 2023, GBeastStudios has been working tirelessly to push the boundaries of what's possible on the Roblox platform.
+            Our team combines artistic vision with technical expertise to deliver games that captivate and inspire.
+          </p>
+        </div>
+        <h3>Our Team</h3>
+        <div class="team-members">
+          <div class="team-row">
+            <div class="team-member">
+              <div class="team-member-avatar"><i class="fas fa-user"></i></div>
+              <h4>Grifrap</h4>
+              <p>Founder, Builder &amp; Scripter</p>
+            </div>
+            <div class="team-member">
+              <div class="team-member-avatar"><i class="fas fa-user"></i></div>
+              <h4>Dev2</h4>
+              <p>Developer</p>
+            </div>
+            <div class="team-member">
+              <div class="team-member-avatar"><i class="fas fa-user"></i></div>
+              <h4>Dev3</h4>
+              <p>Developer</p>
+            </div>
+          </div>
+          <div class="team-row">
+            <div class="team-member">
+              <div class="team-member-avatar"><i class="fas fa-user"></i></div>
+              <h4>Dev4</h4>
+              <p>Developer</p>
+            </div>
+            <div class="team-member">
+              <div class="team-member-avatar"><i class="fas fa-user"></i></div>
+              <h4>Dev5</h4>
+              <p>Developer</p>
+            </div>
+            <div class="team-member">
+              <div class="team-member-avatar"><i class="fas fa-user"></i></div>
+              <h4>Dev6</h4>
+              <p>Developer</p>
+            </div>
+            <div class="team-member">
+              <div class="team-member-avatar"><i class="fas fa-user"></i></div>
+              <h4>Dev7</h4>
+              <p>Developer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+      <h1 class="page-title">Get In Touch</h1>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <i class="fab fa-discord"></i>
+          <h3>Discord</h3>
+          <p>Join our community</p>
+          <a href="https://discord.gg/UETtUBANZN" target="_blank" class="button">Join Server</a>
+        </div>
+        <div class="contact-method">
+          <i class="fab fa-youtube"></i>
+          <h3>YouTube</h3>
+          <p>Watch our latest videos</p>
+          <a href="https://www.youtube.com/@Gbeas_Productions" target="_blank" class="button">Subscribe</a>
+        </div>
+        <div class="contact-method">
+          <i class="fas fa-envelope"></i>
+          <h3>Email</h3>
+          <p>For business inquiries</p>
+          <a href="mailto:garrettwins3@gmail.com" class="button">Contact Us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- MODALS -->
+  <!-- Notification Modal (existing) -->
+  <div class="modal" id="notificationModal">
+    <div class="modal-content">
+      <h2 class="modal-title" id="modalTitle">Title</h2>
+      <p class="modal-text" id="modalText">Text goes here</p>
+      <div class="modal-buttons">
+        <button class="button" id="closeModalBtn"><i class="fas fa-times"></i> Close</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Achievement Notification (existing) -->
+  <div class="achievement" id="achievementNotification">
+    <div class="achievement-icon">
+      <img src="Gbeast.png" alt="Achievement Icon" />
+    </div>
+    <div class="achievement-info">
+      <div class="achievement-title" id="achievementTitle">Achievement Unlocked!</div>
+      <div id="achievementDesc">You've collected 10 items!</div>
+    </div>
+  </div>
+  
+  <!-- Settings Modal -->
+  <div class="modal" id="settingsModal">
+    <div class="modal-content" id="settingsContent">
+      <h2 class="modal-title">Settings</h2>
+      <div class="settings-option">
+        <label for="brightnessRange">Brightness:</label>
+        <input type="range" id="brightnessRange" min="50" max="150" value="100">
+      </div>
+      <div class="settings-option">
+        <label for="themeSelect">Theme:</label>
+        <select id="themeSelect">
+          <option value="default">Default</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+      <div class="modal-buttons">
+        <button class="button" id="saveSettingsBtn">Save Settings</button>
+        <button class="button" id="closeSettingsBtn"><i class="fas fa-times"></i> Close</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Authentication Modal (Sign In / Sign Up) -->
+  <div class="modal" id="authModal">
+    <div class="modal-content" id="authContent">
+      <h2 class="modal-title" id="authTitle">Sign In</h2>
+      <div id="authForm">
+        <input type="text" id="authUsername" placeholder="Username">
+        <input type="password" id="authPassword" placeholder="Password">
+        <div class="modal-buttons">
+          <button class="button" id="authSubmitBtn">Sign In</button>
+          <button class="button" id="toggleAuthBtn">Switch to Sign Up</button>
+          <button class="button" id="closeAuthBtn"><i class="fas fa-times"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <ul class="footer-links">
+          <li><a href="#" data-section="home" class="nav-link">Home</a></li>
+          <li><a href="#" data-section="game" class="nav-link">Mini-Game</a></li>
+          <li><a href="#" data-section="team" class="nav-link">Team</a></li>
+          <li><a href="#" data-section="contact" class="nav-link">Contact</a></li>
+        </ul>
+        <p class="copyright">&copy; 2023-2025 GBeastStudios. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+  
+  <!------------------------------------------
+    JavaScript: Navigation, Modal, Mini-Game, Settings & Auth
+  ------------------------------------------>
+  <script>
+    (function() {
+      'use strict';
+      
+      /*----- Cache DOM Elements -----*/
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.nav-link');
+      const navMenu = document.querySelector('.nav-links');
+      const menuToggle = document.querySelector('.menu-toggle');
+      
+      // Modal elements (Notification)
+      const modal = document.getElementById('notificationModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalText = document.getElementById('modalText');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      
+      // Mini-game elements
+      const startGameBtn = document.getElementById('startGameBtn');
+      const pauseResumeBtn = document.getElementById('pauseResumeBtn');
+      const resetGameBtn = document.getElementById('resetGameBtn');
+      const instructionsBtn = document.getElementById('instructionsBtn');
+      const scoreElement = document.getElementById('score');
+      const highScoreElement = document.getElementById('highScore');
+      const timeLeftElement = document.getElementById('timeLeft');
+      const timerProgressElement = document.getElementById('timerProgress');
+      const gameCanvas = document.getElementById('gameCanvas');
+      const canvasWrapper = document.querySelector('.canvas-wrapper');
+      
+      // Additional buttons
+      const comingSoonBtn = document.getElementById('comingSoonBtn');
+      const notifyBtn = document.getElementById('notifyBtn');
+      
+      // Header icons for settings and auth
+      const settingsBtn = document.getElementById('settingsBtn');
+      const authBtn = document.getElementById('authBtn');
+      
+      // Settings modal elements
+      const settingsModal = document.getElementById('settingsModal');
+      const brightnessRange = document.getElementById('brightnessRange');
+      const themeSelect = document.getElementById('themeSelect');
+      const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+      const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+      
+      // Auth modal elements
+      const authModal = document.getElementById('authModal');
+      const authTitle = document.getElementById('authTitle');
+      const authUsername = document.getElementById('authUsername');
+      const authPassword = document.getElementById('authPassword');
+      const authSubmitBtn = document.getElementById('authSubmitBtn');
+      const toggleAuthBtn = document.getElementById('toggleAuthBtn');
+      const closeAuthBtn = document.getElementById('closeAuthBtn');
+      
+      // Game Variables
+      const ctx = gameCanvas.getContext('2d');
+      let score = 0;
+      let highScore = localStorage.getItem('beastCollectorHighScore') || 0;
+      let timerInterval, spawnInterval;
+      let isGameRunning = false;
+      let timeLeft = 30;
+      const timerMax = 30;
+      let spawnRate = 1500;
+      let scoreMultiplier = 1;
+      let isPaused = false;
+      
+      // Upgrade definitions
+      const upgrades = {
+        moreRed: { cost: 10, purchased: false },
+        fasterSpawn: { cost: 20, purchased: false },
+        doubleScore: { cost: 50, purchased: false },
+        goldRush: { cost: 30, purchased: false }
+      };
+
+      /*----- Navigation Functions -----*/
+      function showSection(sectionId) {
+        sections.forEach(section => {
+          section.classList.toggle('active', section.id === sectionId);
+        });
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.dataset.section === sectionId);
+        });
+        if (navMenu.classList.contains('active')) {
+          navMenu.classList.remove('active');
+        }
+      }
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const sectionId = link.dataset.section;
+          if (sectionId) {
+            showSection(sectionId);
+          }
+        });
+      });
+      menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+      });
+      
+      /*----- Modal Functions -----*/
+      function showModal(title, text) {
+        modalTitle.textContent = title;
+        modalText.textContent = text;
+        modal.style.display = 'flex';
+      }
+      function closeModal() {
+        modal.style.display = 'none';
+      }
+      closeModalBtn.addEventListener('click', closeModal);
+      
+      comingSoonBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showModal("Game In Development", "Secrets of the Noil is currently in development. Stay tuned for updates on our Discord and YouTube channels!");
+      });
+      instructionsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showModal("How To Play", "Click or tap the coins that appear on screen before time runs out. Different colored coins award different points. Use your points to buy upgrades!");
+      });
+      notifyBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showModal("Notifications", "Notification feature coming soon!");
+      });
+      
+      /*----- Achievement System -----*/
+      function showAchievement(title, description) {
+        const achievement = document.getElementById('achievementNotification');
+        document.getElementById('achievementTitle').textContent = title;
+        document.getElementById('achievementDesc').textContent = description;
+        achievement.classList.add('show');
+        setTimeout(() => {
+          achievement.classList.remove('show');
+        }, 3000);
+      }
+      
+      /*----- Game Functions -----*/
+      function initGame() {
+        score = 0;
+        scoreElement.textContent = score;
+        timeLeft = timerMax;
+        timeLeftElement.textContent = timeLeft;
+        timerProgressElement.style.width = '100%';
+        document.querySelectorAll('.collectible-container').forEach(el => el.remove());
+        ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+        ctx.fillStyle = 'rgba(0,0,0,0.7)';
+        ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+        scoreMultiplier = 1;
+        spawnRate = 1500;
+        isGameRunning = false;
+        isPaused = false;
+        pauseResumeBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+      }
+      function startGame() {
+        if (isGameRunning) return;
+        initGame();
+        isGameRunning = true;
+        timerInterval = setInterval(updateTimer, 1000);
+        spawnInterval = setInterval(spawnCollectible, spawnRate);
+      }
+      function togglePause() {
+        if (!isGameRunning) return;
+        isPaused = !isPaused;
+        if (isPaused) {
+          clearInterval(timerInterval);
+          clearInterval(spawnInterval);
+          pauseResumeBtn.innerHTML = '<i class="fas fa-play"></i> Resume';
+        } else {
+          timerInterval = setInterval(updateTimer, 1000);
+          spawnInterval = setInterval(spawnCollectible, spawnRate);
+          pauseResumeBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+        }
+      }
+      function resetGame() {
+        isGameRunning = false;
+        clearInterval(timerInterval);
+        clearInterval(spawnInterval);
+        document.querySelectorAll('.collectible-container').forEach(el => el.remove());
+        initGame();
+      }
+      function updateTimer() {
+        if (!isGameRunning || isPaused) return;
+        timeLeft--;
+        timeLeft = Math.max(0, timeLeft);
+        timeLeftElement.textContent = timeLeft;
+        timerProgressElement.style.width = ((timeLeft / timerMax) * 100) + '%';
+        if (timeLeft <= 0) endGame();
+      }
+      function endGame() {
+        isGameRunning = false;
+        clearInterval(timerInterval);
+        clearInterval(spawnInterval);
+        document.querySelectorAll('.collectible-container').forEach(el => el.remove());
+        if (score > highScore) {
+          highScore = score;
+          if (currentUser) {
+            // Save high score per user
+            let users = JSON.parse(localStorage.getItem('users')) || {};
+            users[currentUser].highScore = score;
+            localStorage.setItem('users', JSON.stringify(users));
+          } else {
+            localStorage.setItem('beastCollectorHighScore', highScore);
+          }
+        }
+        highScoreElement.textContent = highScore;
+        showModal("Game Over", "Your score: " + score);
+      }
+      function getCoinProbabilities() {
+        let redWeight = 0.3, blueWeight = 0.3, greenWeight = 0.35, goldWeight = 0.05;
+        if (upgrades.moreRed.purchased) {
+          redWeight = 0.5; blueWeight = 0.2; greenWeight = 0.2; goldWeight = 0.1;
+        }
+        if (upgrades.goldRush.purchased) {
+          goldWeight += 0.1; redWeight -= 0.05; greenWeight -= 0.05;
+        }
+        return [
+          { color: 'red', score: 1, weight: redWeight },
+          { color: 'blue', score: 2, weight: blueWeight },
+          { color: 'green', score: 3, weight: greenWeight },
+          { color: 'gold', score: 5, weight: goldWeight }
+        ];
+      }
+      function spawnCollectible() {
+        if (!isGameRunning || isPaused) return;
+        const size = 30;
+        const randomX = Math.random() * (gameCanvas.width - size);
+        const randomY = Math.random() * (gameCanvas.height - size);
+        const coinProbabilities = getCoinProbabilities();
+        let total = coinProbabilities.reduce((acc, obj) => acc + obj.weight, 0);
+        let rand = Math.random() * total;
+        let chosenCoin = coinProbabilities[0];
+        for (let coin of coinProbabilities) {
+          if (rand < coin.weight) {
+            chosenCoin = coin;
+            break;
+          }
+          rand -= coin.weight;
+        }
+        const collectible = document.createElement('div');
+        collectible.className = 'collectible-container';
+        collectible.style.left = randomX + 'px';
+        collectible.style.top = randomY + 'px';
+        if (chosenCoin.color === 'gold') {
+          collectible.style.backgroundColor = '#FFD700';
+          collectible.style.boxShadow = '0 0 8px #FFD700';
+        } else {
+          collectible.style.backgroundColor = chosenCoin.color;
+          collectible.style.boxShadow = '0 0 8px ' + chosenCoin.color;
+        }
+        collectible.addEventListener('click', () => {
+          if (!isGameRunning || isPaused) return;
+          score += chosenCoin.score * scoreMultiplier;
+          scoreElement.textContent = score;
+          if (score > 0 && score % 10 === 0) {
+            showAchievement("Achievement Unlocked!", "You've collected " + score + " points!");
+          }
+          collectible.remove();
+        });
+        canvasWrapper.appendChild(collectible);
+        setTimeout(() => { collectible.remove(); }, 3000);
+      }
+      function buyUpgrade(upgradeId) {
+        const upgrade = upgrades[upgradeId];
+        if (upgrade.purchased) {
+          showModal("Upgrade", "Upgrade already purchased!");
+          return;
+        }
+        if (score < upgrade.cost) {
+          showModal("Upgrade", "Not enough score to buy this upgrade!");
+          return;
+        }
+        score -= upgrade.cost;
+        scoreElement.textContent = score;
+        upgrade.purchased = true;
+        if (upgradeId === 'fasterSpawn') {
+          spawnRate = 800;
+          if (!isPaused && isGameRunning) {
+            clearInterval(spawnInterval);
+            spawnInterval = setInterval(spawnCollectible, spawnRate);
+          }
+        } else if (upgradeId === 'doubleScore') {
+          scoreMultiplier = 2;
+        }
+        showModal("Upgrade", "Upgrade purchased: " + upgradeId);
+      }
+      document.querySelectorAll('.upgrade-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const upgradeId = btn.getAttribute('data-upgrade');
+          buyUpgrade(upgradeId);
+        });
+      });
+      
+      /*----- Settings Modal Functions -----*/
+      settingsBtn.addEventListener('click', () => {
+        settingsModal.style.display = 'flex';
+        // Load saved settings if available
+        const savedSettings = JSON.parse(localStorage.getItem('userSettings')) || { brightness: 100, theme: "default" };
+        brightnessRange.value = savedSettings.brightness;
+        themeSelect.value = savedSettings.theme;
+      });
+      saveSettingsBtn.addEventListener('click', () => {
+        const brightness = brightnessRange.value;
+        const theme = themeSelect.value;
+        document.body.style.filter = `brightness(${brightness}%)`;
+        // For demo, theme change can adjust background gradient (light/dark)
+        if (theme === "light") {
+          document.body.style.background = "linear-gradient(135deg, #ffffff, #cccccc)";
+        } else if (theme === "dark") {
+          document.body.style.background = "linear-gradient(135deg, #000000, #333333)";
+        } else {
+          document.body.style.background = "linear-gradient(135deg, #990000, #000000, #FFFFFF, #808080)";
+        }
+        localStorage.setItem('userSettings', JSON.stringify({ brightness, theme }));
+        settingsModal.style.display = 'none';
+      });
+      closeSettingsBtn.addEventListener('click', () => {
+        settingsModal.style.display = 'none';
+      });
+      
+      /*----- Authentication Modal Functions -----*/
+      let isSignUpMode = false;
+      let currentUser = localStorage.getItem('currentUser') || null;
+      function updateAuthModal() {
+        if (isSignUpMode) {
+          authTitle.textContent = "Sign Up";
+          authSubmitBtn.textContent = "Sign Up";
+          toggleAuthBtn.textContent = "Switch to Sign In";
+        } else {
+          authTitle.textContent = "Sign In";
+          authSubmitBtn.textContent = "Sign In";
+          toggleAuthBtn.textContent = "Switch to Sign Up";
+        }
+      }
+      authBtn.addEventListener('click', () => {
+        authModal.style.display = 'flex';
+        updateAuthModal();
+      });
+      toggleAuthBtn.addEventListener('click', () => {
+        isSignUpMode = !isSignUpMode;
+        updateAuthModal();
+      });
+      authSubmitBtn.addEventListener('click', () => {
+        const username = authUsername.value.trim();
+        const password = authPassword.value;
+        if (!username || !password) {
+          alert("Please enter both username and password.");
+          return;
+        }
+        let users = JSON.parse(localStorage.getItem('users')) || {};
+        if (isSignUpMode) {
+          if (users[username]) {
+            alert("Username already exists.");
+          } else {
+            users[username] = { password, highScore: 0, settings: {} };
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('currentUser', username);
+            currentUser = username;
+            alert("Sign up successful! You are now signed in as " + username);
+            authModal.style.display = 'none';
+          }
+        } else {
+          if (users[username] && users[username].password === password) {
+            localStorage.setItem('currentUser', username);
+            currentUser = username;
+            alert("Sign in successful! Welcome " + username);
+            // Load user high score if available
+            if (users[username].highScore) {
+              highScore = users[username].highScore;
+              highScoreElement.textContent = highScore;
+            }
+            authModal.style.display = 'none';
+          } else {
+            alert("Invalid username or password.");
+          }
+        }
+        authUsername.value = "";
+        authPassword.value = "";
+      });
+      closeAuthBtn.addEventListener('click', () => {
+        authModal.style.display = 'none';
+      });
+      
+      /*----- Expose showSection for footer links -----*/
+      window.showSection = showSection;
+      
+    })();
+  </script>
+</body>
+</html>
